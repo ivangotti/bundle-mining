@@ -14,6 +14,121 @@ In this tool, entitlements are represented as CSV columns with the `ent_` prefix
 
 This tool analyzes these entitlements to discover patterns and recommend consolidated role bundles, transforming complex, individualized access assignments into standardized, manageable role structures.
 
+## Role Mining: Goals and Methodology
+
+### What is Role Mining?
+
+**Role Mining** is the process of discovering meaningful role structures from existing user-permission assignments. Instead of manually designing roles from scratch, role mining uses data-driven analysis to identify natural groupings and patterns in how entitlements are actually distributed across users.
+
+### The Problem: Permission Sprawl
+
+In many organizations, user permissions accumulate over time through:
+- Ad-hoc access requests
+- Job changes and promotions
+- Temporary project assignments
+- Lack of standardized provisioning processes
+
+This results in:
+- Every user having a unique combination of entitlements
+- Difficult access reviews and audits
+- Slow onboarding (each permission assigned individually)
+- Security risks from excessive permissions
+- No clear understanding of "who should have what"
+
+### The Goal: Role-Based Access Control (RBAC)
+
+Role mining aims to transform this chaos into structured RBAC:
+
+1. **Discover Natural Groupings**: Identify users with similar entitlement patterns
+2. **Create Role Bundles**: Define standard roles based on common patterns
+3. **Reduce Complexity**: Convert hundreds of unique permission sets into ~10-20 standard roles
+4. **Enable Scalability**: New users get assigned to roles, not individual permissions
+5. **Improve Security**: Standardized roles are easier to audit and maintain
+
+### How the Statistical Analysis Works
+
+This tool employs multiple role mining techniques to discover patterns:
+
+#### 1. Exact Match Clustering
+**What it does:** Groups users with identical entitlement combinations
+
+**Algorithm:**
+- Creates a signature for each user's complete entitlement set
+- Groups users with matching signatures
+- Identifies how many users share each unique pattern
+
+**Output:** Role candidates where users have exactly the same entitlements
+
+**Example:** 9 users all have `[Investor + Risk Officer, Transfer + Approve + Reject]` → Suggests "Financial Risk Manager" role
+
+#### 2. Role Co-occurrence Analysis
+**What it does:** Finds entitlement attributes that frequently appear together
+
+**Algorithm:**
+- Analyzes all pairs of entitlements (e.g., "Investor" + "Risk Officer")
+- Counts how often each pair appears across all users
+- Ranks pairs by frequency
+
+**Output:** Frequently paired roles that should be bundled together
+
+**Example:** "Investor" and "Risk Officer" appear together in 9 users (9%) → Strong candidate for composite role
+
+#### 3. Permission Pattern Mining
+**What it does:** Discovers shared permission subsets regardless of role combinations
+
+**Algorithm:**
+- Extracts permission sets from all users
+- Groups users with identical permission combinations
+- Identifies common permission patterns across different roles
+
+**Output:** Standard permission tiers that can be applied across multiple roles
+
+**Example:** 13 users have "Transfer" permission → Create a "Transaction Handler" permission add-on
+
+#### 4. Organizational Context Analysis
+**What it does:** Analyzes patterns within organizational units (cost centers, departments)
+
+**Algorithm:**
+- Groups users by organizational attributes (e.g., cost center)
+- Calculates most common roles and permissions within each group
+- Identifies department-specific patterns
+
+**Output:** Department-based role recommendations aligned with organizational structure
+
+**Example:** CC300 (Audit Department) has 18 users primarily with "Verify, Approve, Reject" → Suggests "Audit Operations" role
+
+#### 5. Frequency-Based Ranking
+**What it does:** Prioritizes roles by prevalence to maximize impact
+
+**Algorithm:**
+- Counts users matching each pattern
+- Calculates coverage percentage (% of total users)
+- Ranks patterns from most to least common
+
+**Output:** Prioritized list of role candidates starting with highest impact
+
+**Example:** Top 5 roles cover 35% of users → Implement these first for quick wins
+
+### Statistical Metrics
+
+The analysis provides key metrics to evaluate role quality:
+
+- **Coverage**: Percentage of users that fit into suggested roles (higher is better)
+- **User Count**: Number of users per role (determines role value)
+- **Percentage**: % of total user population (measures impact)
+- **Average Permissions**: Granularity of access per role (helps balance security vs. usability)
+- **Unique Patterns**: Number of distinct entitlement combinations (indicates fragmentation level)
+
+### Implementation Strategy
+
+The tool recommends a **3-tier role system**:
+
+1. **Primary Role Bundles**: 5-10 roles covering the most common combinations (35-50% of users)
+2. **Permission Add-ons**: Modular permission sets that can be added to base roles
+3. **Department Roles**: Organizational unit-specific roles aligned with cost centers
+
+This approach balances standardization with flexibility, allowing most users to fit standard roles while accommodating exceptions.
+
 ## Features
 
 - **Entitlement Catalog Extraction**: Identifies and catalogs all unique entitlements from CSV files
