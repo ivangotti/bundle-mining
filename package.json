@@ -1,0 +1,23 @@
+{
+  "name": "bundle-mining",
+  "version": "1.0.0",
+  "description": "CSV Entitlement Parser - Extracts unique entitlements from CSV files",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "analyze": "node dist/analyze.js",
+    "patterns": "node dist/patterns.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": ["csv", "parser", "entitlements", "catalog"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parse": "^5.5.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3"
+  }
+}
