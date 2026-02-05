@@ -2,12 +2,25 @@
 
 A TypeScript-based CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
 
+## What are Entitlements?
+
+**Entitlements** represent fine-grained user authorizations in identity and access management systems. They are the specific permissions, roles, resources, or attributes assigned to users that determine what actions they can perform and what resources they can access.
+
+In this tool, entitlements are represented as CSV columns with the `ent_` prefix:
+- `ent_UserRole` - Job functions or organizational roles
+- `ent_Permissions` - Specific access rights (View, Approve, Submit, etc.)
+- `ent_CostCenter` - Organizational units or departments
+- `ent_*` - Any custom entitlement attribute
+
+This tool analyzes these entitlements to discover patterns and recommend consolidated role bundles, transforming complex, individualized access assignments into standardized, manageable role structures.
+
 ## Features
 
 - **Entitlement Catalog Extraction**: Identifies and catalogs all unique entitlements from CSV files
 - **Role Mining Analysis**: Discovers common role combinations and permission patterns
 - **Statistical Pattern Analysis**: Multi-dimensional analysis of roles, permissions, and organizational structure
 - **Role Bundle Recommendations**: Suggests standardized role bundles based on user patterns
+- **Timestamped Output**: Each analysis creates unique timestamped folders to preserve historical runs
 
 ## Installation
 
@@ -80,7 +93,9 @@ npm run patterns "entitlement-data.csv"
 
 ## CSV File Format
 
-Your CSV must contain columns with the `ent_` prefix:
+Your CSV must contain **entitlement columns** with the `ent_` prefix. These columns represent the fine-grained authorizations assigned to users in your IAM solution.
+
+**Example CSV Structure:**
 
 ```csv
 Username,firstName,lastName,ent_CostCenter,ent_UserRole,ent_Permissions
@@ -88,10 +103,19 @@ user1@example.com,John,Doe,CC100,"Manager,Analyst","View,Approve"
 user2@example.com,Jane,Smith,CC200,Consultant,"View,Verify,Submit"
 ```
 
-**Supported:**
-- Comma-separated values within cells (e.g., "Role1,Role2")
+**Entitlement Column Examples:**
+- `ent_UserRole` - User's organizational roles (e.g., Manager, Analyst, Consultant)
+- `ent_Permissions` - Specific access rights (e.g., View, Approve, Submit, Verify)
+- `ent_CostCenter` - Department or cost center assignments
+- `ent_Application` - Application access entitlements
+- `ent_Groups` - Security group memberships
+- `ent_*` - Any custom entitlement attribute
+
+**Format Requirements:**
+- Comma-separated values within cells (e.g., "Role1,Role2") for multiple entitlements
 - Any number of `ent_` prefixed columns
 - Standard CSV format with headers
+- UTF-8 encoding recommended
 
 ## Role Mining Methodology
 
@@ -112,11 +136,29 @@ This tool implements several role mining techniques:
 
 ## Output Files
 
+Each analysis run creates a **timestamped output directory** to preserve historical results:
+
+```
+output/
+├── <filename>_YYYY-MM-DD_HH-MM-SS/
+│   ├── catalog.json
+│   ├── pattern-analysis.json
+│   └── role-analysis.json
+```
+
+**Example:**
+```
+output/
+└── entitlement-data_2026-02-04_23-06-43/
+    ├── catalog.json
+    └── pattern-analysis.json
+```
+
 | File | Description |
 |------|-------------|
-| `catalog.json` | Complete entitlement catalog with unique values |
+| `catalog.json` | Complete entitlement catalog with unique values per `ent_*` column |
 | `pattern-analysis.json` | Statistical analysis with role patterns, co-occurrence, and recommendations |
-| `role-analysis.json` | Individual role candidates (when using basic analysis) |
+| `role-analysis.json` | Individual role candidates (when using basic analysis mode) |
 
 ## Example Analysis Results
 
@@ -182,11 +224,13 @@ npm run dev "<csv-file>"
 
 ## Use Cases
 
+- **IAM Entitlement Optimization**: Analyze fine-grained IAM entitlements and consolidate into manageable role bundles
 - **Identity & Access Management**: Consolidate fragmented permissions into structured roles
-- **Compliance & Audit**: Identify and standardize access patterns
-- **Role-Based Access Control (RBAC)**: Design role hierarchies based on actual usage
-- **User Provisioning**: Simplify onboarding with standardized role bundles
-- **Access Reviews**: Reduce complexity of periodic access certifications
+- **Compliance & Audit**: Identify and standardize access patterns for regulatory compliance
+- **Role-Based Access Control (RBAC)**: Design role hierarchies based on actual usage patterns
+- **User Provisioning**: Simplify onboarding with standardized role bundles instead of individual entitlements
+- **Access Reviews**: Reduce complexity of periodic access certifications by reviewing roles instead of individual permissions
+- **Permission Creep Detection**: Discover users with excessive or unusual entitlement combinations
 
 ## License
 
