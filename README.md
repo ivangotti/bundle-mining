@@ -4,7 +4,7 @@ A TypeScript-based CLI tool for analyzing CSV entitlement data and discovering r
 
 ## What are Entitlements?
 
-**Entitlements** represent fine-grained user authorizations in identity and access management systems. They are the specific permissions, roles, resources, or attributes assigned to users that determine what actions they can perform and what resources they can access.
+**Entitlements** represent fine-grained user authorizations in identity and access management (IAM) systems. They are the specific permissions, roles, resources, or attributes assigned to users that determine what actions they can perform and what resources they can access.
 
 In this tool, entitlements are represented as CSV columns with the `ent_` prefix:
 - `ent_UserRole` - Job functions or organizational roles
