@@ -2,7 +2,7 @@
 
 > **Warning**: This is an experimental project. Use at your own risk.
 
-A TypeScript-based CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
+A modern CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
 
 ## What are Entitlements?
 
@@ -305,39 +305,17 @@ For the sample "Financial Records" CSV with 100 users:
 
 ```
 bundle-mining/
-├── src/
-│   ├── index.ts              # Catalog extraction CLI
-│   ├── analyze.ts            # Basic role mining CLI
-│   ├── patterns.ts           # Advanced pattern analysis CLI
-│   ├── parser.ts             # CSV parsing logic
-│   ├── catalog.ts            # Catalog generation
-│   ├── roleMining.ts         # Role mining algorithms
-│   └── advancedAnalysis.ts   # Pattern analysis algorithms
-├── dist/                     # Compiled JavaScript
+├── src/                      # Source code
+│   ├── index                 # Catalog extraction CLI
+│   ├── analyze               # Basic role mining CLI
+│   ├── patterns              # Advanced pattern analysis CLI
+│   ├── parser                # CSV parsing logic
+│   ├── catalog               # Catalog generation
+│   ├── roleMining            # Role mining algorithms
+│   └── advancedAnalysis      # Pattern analysis algorithms
 ├── output/                   # Generated analysis files
-├── package.json
-├── tsconfig.json
 └── README.md
 ```
-
-## Development
-
-### Build
-```bash
-npm run build
-```
-
-### Run in Development Mode
-```bash
-npm run dev "<csv-file>"
-```
-
-## Technical Details
-
-- **Runtime**: Node.js (v18+)
-- **Language**: TypeScript
-- **CSV Parser**: csv-parse library
-- **Build**: TypeScript compiler (tsc)
 
 ## Use Cases
 
