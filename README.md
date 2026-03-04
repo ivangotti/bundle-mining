@@ -1,5 +1,7 @@
 # Bundle Mining - Role Mining Analysis Tool
 
+> **Warning**: This is an experimental project. Use at your own risk.
+
 A TypeScript-based CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
 
 ## What are Entitlements?
