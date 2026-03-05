@@ -1,6 +1,6 @@
 # Bundle Mining - Role Mining Analysis Tool
 
-> **Warning**: This is an experimental project. Use at your own risk.
+> ⚠️ **Warning**: This is an experimental project. Use at your own risk.
 
 ## Purpose
 
