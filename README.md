@@ -2,7 +2,15 @@
 
 > **Warning**: This is an experimental project. Use at your own risk.
 
-A modern CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
+## Purpose
+
+Bundle Mining helps organizations build their **Role-Based Access Control (RBAC)** authorization model from unstructured data. Many organizations have accumulated user permissions over time without a formal role structure—permissions are assigned ad-hoc, inherited from previous employees, or granted for temporary projects and never revoked. This tool analyzes your existing entitlement data to discover natural patterns and recommends a structured role model that reflects how access is actually used in your organization.
+
+Instead of designing roles from scratch based on assumptions, Bundle Mining uses data-driven analysis to identify which permissions naturally cluster together, which users share similar access patterns, and what role bundles would provide the best coverage with minimal complexity.
+
+## Overview
+
+A CLI tool for analyzing CSV entitlement data and discovering role patterns using role mining techniques.
 
 ## What are Entitlements?
 
